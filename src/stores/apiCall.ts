@@ -20,14 +20,22 @@ interface ApiCallState {
 
 export const useApi = defineStore('apiCall', {
   state: (): ApiCallState => ({ fontsList: [] }),
-  getters: {},
+  getters: {
+    getFilteredFonts: (state) => (param: string) => {
+      return state.fontsList.filter(
+        (font) => font.family.toLowerCase().indexOf(param.toLowerCase()) > -1,
+      );
+    },
+  },
   actions: {
     async fetchApi(): Promise<void> {
       const response = await fetch(
         `https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_API_KEY}`,
       ).then((response) => response.json());
 
-      this.fontsList = response.items;
+      // console.log(`response:`, response.items);
+
+      this.fontsList = response.items.slice(0, 20);
     },
   },
 });
