@@ -18,8 +18,10 @@ function handleScroll() {
     window.innerHeight + document.documentElement.scrollTop + 2 >=
     document.documentElement.offsetHeight
   ) {
-    api.fetchApi(0, numberOfFonts.value);
-    numberOfFonts.value += 5;
+    setTimeout(() => {
+      api.fetchApi(0, numberOfFonts.value);
+      numberOfFonts.value += 5;
+    }, 1000);
   }
 }
 onMounted(() => {
