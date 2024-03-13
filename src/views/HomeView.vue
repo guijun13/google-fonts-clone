@@ -2,6 +2,7 @@
 import { useApi } from '@/stores/apiCall';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 const api = useApi();
 const yourTextInput = ref('');
@@ -35,7 +36,9 @@ onMounted(() => {
       <h3>Favorite fonts</h3>
       <ul v-for="favorite in api.favoriteList" :key="favorite.family">
         <li>
-          {{ favorite.family }}
+          <RouterLink :to="`/specimen/${favorite.family}`">
+            {{ favorite.family }}
+          </RouterLink>
           <button @click="api.removeFavorite(favorite)">Remove</button>
         </li>
       </ul>
@@ -51,9 +54,9 @@ onMounted(() => {
     </div>
     <ul ref="el">
       <li v-for="font in getFilteredFonts(searchFontInput)" :key="font.family">
-        <h2>
+        <RouterLink :to="`/specimen/${font.family}`">
           {{ font.family }}
-        </h2>
+        </RouterLink>
         <link rel="stylesheet" :href="`https://fonts.googleapis.com/css?family=${font.family}`" />
         <p
           v-if="yourTextInput !== ''"
