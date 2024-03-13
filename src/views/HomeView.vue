@@ -31,6 +31,15 @@ onMounted(() => {
 
 <template>
   <main>
+    <div>
+      <h3>Favorite fonts</h3>
+      <ul v-for="favorite in api.favoriteList" :key="favorite.family">
+        <li>
+          {{ favorite.family }}
+          <button @click="api.removeFavorite(favorite)">Remove</button>
+        </li>
+      </ul>
+    </div>
     <h1>Fonts List</h1>
     <div>
       <label for="yourTextInput">Try your text</label>
@@ -56,6 +65,9 @@ onMounted(() => {
         <p v-else :style="{ fontFamily: font.family, fontSize: '24px' }">
           The quick brown fox jumps over the lazy dog
         </p>
+        <button @click="api.addFavorite(font)" :disabled="api.favoriteList.includes(font)">
+          Favorite
+        </button>
       </li>
     </ul>
   </main>

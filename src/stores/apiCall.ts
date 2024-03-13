@@ -1,4 +1,6 @@
+import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
+import type { Ref } from 'vue';
 
 interface Font {
   family: string;
@@ -16,15 +18,22 @@ interface Font {
 
 interface ApiCallState {
   fontsList: Font[];
+  favoriteList: Ref<Font[]>;
 }
 
 export const useApi = defineStore('apiCall', {
-  state: (): ApiCallState => ({ fontsList: [] }),
+  state: (): ApiCallState => ({
+    fontsList: [],
+    favoriteList: useLocalStorage<Font[]>('favoriteList', []),
+  }),
   getters: {
     getFilteredFonts: (state) => (param: string) => {
       return state.fontsList.filter(
         (font) => font.family.toLowerCase().indexOf(param.toLowerCase()) > -1,
       );
+    },
+    getFavoriteList: (state) => {
+      return state.favoriteList;
     },
   },
   actions: {
@@ -33,9 +42,13 @@ export const useApi = defineStore('apiCall', {
         `https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_API_KEY}`,
       ).then((response) => response.json());
 
-      // console.log(`response:`, response.items);
-
       this.fontsList = response.items.slice(min, max);
+    },
+    addFavorite(font: Font): void {
+      this.favoriteList.push(font);
+    },
+    removeFavorite(font: Font): void {
+      this.favoriteList = this.favoriteList.filter((favorite) => favorite.family !== font.family);
     },
   },
 });
