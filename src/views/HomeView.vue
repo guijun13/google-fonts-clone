@@ -35,21 +35,14 @@ onMounted(() => {
 </script>
 
 <template>
+  <header>
+    <h1>Google Fonts Clone</h1>
+    <TextInput v-model="searchFontInput">Search a font</TextInput>
+    <RouterLink to="/selection">Favorites ({{ api.favoriteList.length }})</RouterLink>
+  </header>
   <main>
-    <div>
-      <h3>Favorite fonts</h3>
-      <ul v-for="favorite in api.favoriteList" :key="favorite.family">
-        <li>
-          <RouterLink :to="`/specimen/${favorite.family}`">
-            {{ favorite.family }}
-          </RouterLink>
-          <button @click="api.removeFavorite(favorite)">Remove</button>
-        </li>
-      </ul>
-    </div>
     <h1>Fonts List</h1>
     <TextInput v-model="previewTextInput">Try your text</TextInput>
-    <TextInput v-model="searchFontInput">Search a font</TextInput>
     <RangeInput v-model="fontSizeInput">Font size</RangeInput>
     <ul ref="el">
       <li v-for="font in getFilteredFonts(searchFontInput)" :key="font.family">
