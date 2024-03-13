@@ -5,7 +5,7 @@ defineProps(['title']);
 
 <template>
   <div>
-    <label for=""><slot /></label>
+    <label><slot /></label>
     <input type="text" v-model="model" />
   </div>
 </template>

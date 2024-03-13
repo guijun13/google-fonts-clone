@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import TextInput from '@/components/TextInput.vue';
+import RangeInput from '@/components/RangeInput.vue';
 
 const api = useApi();
 
@@ -49,11 +50,7 @@ onMounted(() => {
     <h1>Fonts List</h1>
     <TextInput v-model="previewTextInput">Try your text</TextInput>
     <TextInput v-model="searchFontInput">Search a font</TextInput>
-    <div>
-      <label for="fontSizeRange">Font size</label>
-      <input type="range" min="8" max="300" v-model="fontSizeInput" />
-      <span>{{ fontSizeInput }}px</span>
-    </div>
+    <RangeInput v-model="fontSizeInput">Font size</RangeInput>
     <ul ref="el">
       <li v-for="font in getFilteredFonts(searchFontInput)" :key="font.family">
         <RouterLink :to="`/specimen/${font.family}`">
