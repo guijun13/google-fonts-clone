@@ -35,7 +35,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="flex justify-around items-center">
+  <header class="flex justify-around items-center gap-x-4">
     <img src="@/assets/google-fonts-logo.svg" alt="Google Fonts logo" />
     <TextInput v-model="searchFontInput" placeholder="Search fonts" />
 
@@ -45,9 +45,12 @@ onMounted(() => {
     </RouterLink>
   </header>
   <main>
-    <h1>Fonts List</h1>
-    <TextInput v-model="previewTextInput">Try your text</TextInput>
-    <RangeInput v-model="fontSizeInput">Font size</RangeInput>
+    <section class="my-8 sm:flex gap-y-8 sm:gap-x-4 sm:items-center">
+      <TextInput v-model="previewTextInput" placeholder="Try your text">Preview:</TextInput>
+      <div class="flex items-center">
+        <RangeInput v-model="fontSizeInput" />
+      </div>
+    </section>
     <ul ref="el">
       <li v-for="font in getFilteredFonts(searchFontInput)" :key="font.family">
         <RouterLink :to="`/specimen/${font.family}`">

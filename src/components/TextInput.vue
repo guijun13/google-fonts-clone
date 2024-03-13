@@ -4,10 +4,11 @@ const props = defineProps(['placeholder']);
 </script>
 
 <template>
+  <label class="font-sans font-semibold"><slot /></label>
   <input
     type="text"
     v-model="model"
     :placeholder="props.placeholder"
-    class="mx-4 grow py-4 border-none rounded-full bg-slate-100 p-4 font-sans"
+    class="grow py-4 border-none rounded-full bg-slate-100 p-4 font-sans"
   />
 </template>
