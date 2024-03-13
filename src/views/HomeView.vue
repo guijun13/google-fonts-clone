@@ -7,6 +7,7 @@ import { RouterLink } from 'vue-router';
 const api = useApi();
 const yourTextInput = ref('');
 const searchFontInput = ref('');
+const fontSizeInput = ref(24);
 const numberOfFonts = ref(20);
 const el = ref<HTMLElement | null>(null);
 
@@ -52,6 +53,11 @@ onMounted(() => {
       <label for="searchFontInput">Search a font</label>
       <input type="text" v-model="searchFontInput" />
     </div>
+    <div>
+      <label for="fontSizeRange">Font size</label>
+      <input type="range" min="8" max="300" v-model="fontSizeInput" />
+      <span>{{ fontSizeInput }}px</span>
+    </div>
     <ul ref="el">
       <li v-for="font in getFilteredFonts(searchFontInput)" :key="font.family">
         <RouterLink :to="`/specimen/${font.family}`">
@@ -60,12 +66,12 @@ onMounted(() => {
         <link rel="stylesheet" :href="`https://fonts.googleapis.com/css?family=${font.family}`" />
         <p
           v-if="yourTextInput !== ''"
-          :style="{ fontFamily: font.family, fontSize: '24px' }"
+          :style="{ fontFamily: font.family, fontSize: `${fontSizeInput}px` }"
           class="sample-text"
         >
           {{ yourTextInput }}
         </p>
-        <p v-else :style="{ fontFamily: font.family, fontSize: '24px' }">
+        <p v-else :style="{ fontFamily: font.family, fontSize: `${fontSizeInput}px` }">
           The quick brown fox jumps over the lazy dog
         </p>
         <button @click="api.addFavorite(font)" :disabled="api.favoriteList.includes(font)">
