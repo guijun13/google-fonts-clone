@@ -5,17 +5,18 @@ import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 const api = useApi();
-const yourTextInput = ref('');
-const searchFontInput = ref('');
-const fontSizeInput = ref(24);
-const numberOfFonts = ref(20);
+
+const previewTextInput = ref<string>('');
+const searchFontInput = ref<string>('');
+const fontSizeInput = ref<number>(24);
+const numberOfFonts = ref<number>(20);
 const el = ref<HTMLElement | null>(null);
 
 api.fetchApi(0, numberOfFonts.value);
 
 const { getFilteredFonts } = storeToRefs(api);
 
-function handleScroll() {
+function handleScroll(): void {
   if (
     window.innerHeight + document.documentElement.scrollTop + 2 >=
     document.documentElement.offsetHeight
@@ -23,7 +24,7 @@ function handleScroll() {
     setTimeout(() => {
       api.fetchApi(0, numberOfFonts.value);
       numberOfFonts.value += 5;
-    }, 1000);
+    }, 300);
   }
 }
 onMounted(() => {
@@ -46,8 +47,8 @@ onMounted(() => {
     </div>
     <h1>Fonts List</h1>
     <div>
-      <label for="yourTextInput">Try your text</label>
-      <input type="text" v-model="yourTextInput" />
+      <label for="previewTextInput">Try your text</label>
+      <input type="text" v-model="previewTextInput" />
     </div>
     <div>
       <label for="searchFontInput">Search a font</label>
@@ -65,11 +66,11 @@ onMounted(() => {
         </RouterLink>
         <link rel="stylesheet" :href="`https://fonts.googleapis.com/css?family=${font.family}`" />
         <p
-          v-if="yourTextInput !== ''"
+          v-if="previewTextInput !== ''"
           :style="{ fontFamily: font.family, fontSize: `${fontSizeInput}px` }"
           class="sample-text"
         >
-          {{ yourTextInput }}
+          {{ previewTextInput }}
         </p>
         <p v-else :style="{ fontFamily: font.family, fontSize: `${fontSizeInput}px` }">
           The quick brown fox jumps over the lazy dog
