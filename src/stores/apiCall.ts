@@ -27,19 +27,18 @@ export const useApi = defineStore('apiCall', {
     favoriteList: useLocalStorage<Font[]>('favoriteList', []),
   }),
   getters: {
-    getFilteredFonts: (state) => (param: string) => {
-      return state.fontsList.filter(
-        (font) => font.family.toLowerCase().indexOf(param.toLowerCase()) > -1,
-      );
-    },
-    getFavoriteList: (state) => {
-      return state.favoriteList;
-    },
+    getFilteredFonts:
+      (state) =>
+      (searchFont: string): Font[] => {
+        return state.fontsList.filter((font: Font) =>
+          font.family.toLocaleLowerCase().includes(searchFont.toLowerCase()),
+        );
+      },
   },
   actions: {
     async fetchApi(min: number, max: number): Promise<void> {
-      const response = await fetch(
-        `https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_API_KEY}`,
+      const response: { items: Font[] } = await fetch(
+        `https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_API_KEY}&sort=popularity`,
       ).then((response) => response.json());
 
       this.fontsList = response.items.slice(min, max);
@@ -48,7 +47,9 @@ export const useApi = defineStore('apiCall', {
       this.favoriteList.push(font);
     },
     removeFavorite(font: Font): void {
-      this.favoriteList = this.favoriteList.filter((favorite) => favorite.family !== font.family);
+      this.favoriteList = this.favoriteList.filter(
+        (favorite: Font) => favorite.family !== font.family,
+      );
     },
   },
 });
