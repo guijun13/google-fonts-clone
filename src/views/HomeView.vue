@@ -51,16 +51,23 @@ onMounted(() => {
         <RangeInput v-model="fontSizeInput" />
       </div>
     </section>
-    <ul ref="el">
-      <li v-for="font in getFilteredFonts(searchFontInput)" :key="font.family">
-        <RouterLink :to="`/specimen/${font.family}`">
-          {{ font.family }}
-        </RouterLink>
+    <section ref="el">
+      <RouterLink
+        v-for="font in getFilteredFonts(searchFontInput)"
+        :key="font.family"
+        :to="`/specimen/${font.family}`"
+        class="my-4 p-4 border border-gray-200 rounded-lg flex flex-col gap-x-4 items-start transition hover:bg-gray-200 duration-400"
+      >
         <link rel="stylesheet" :href="`https://fonts.googleapis.com/css?family=${font.family}`" />
+        <div class="flex gap-x-4 font-sans my-4">
+          <p class="">
+            {{ font.family }}
+          </p>
+          <p class="text-gray-400">{{ font.variants?.length }} styles</p>
+        </div>
         <p
           v-if="previewTextInput !== ''"
           :style="{ fontFamily: font.family, fontSize: `${fontSizeInput}px` }"
-          class="sample-text"
         >
           {{ previewTextInput }}
         </p>
@@ -70,8 +77,8 @@ onMounted(() => {
         <button @click="api.addFavorite(font)" :disabled="api.favoriteList.includes(font)">
           Favorite
         </button>
-      </li>
-    </ul>
+      </RouterLink>
+    </section>
   </main>
 </template>
 
