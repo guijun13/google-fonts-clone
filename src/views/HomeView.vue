@@ -3,6 +3,7 @@ import { useApi } from '@/stores/apiCall';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import TextInput from '@/components/TextInput.vue';
 
 const api = useApi();
 
@@ -46,14 +47,8 @@ onMounted(() => {
       </ul>
     </div>
     <h1>Fonts List</h1>
-    <div>
-      <label for="previewTextInput">Try your text</label>
-      <input type="text" v-model="previewTextInput" />
-    </div>
-    <div>
-      <label for="searchFontInput">Search a font</label>
-      <input type="text" v-model="searchFontInput" />
-    </div>
+    <TextInput v-model="previewTextInput">Try your text</TextInput>
+    <TextInput v-model="searchFontInput">Search a font</TextInput>
     <div>
       <label for="fontSizeRange">Font size</label>
       <input type="range" min="8" max="300" v-model="fontSizeInput" />
