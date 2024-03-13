@@ -35,10 +35,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <header>
-    <h1>Google Fonts Clone</h1>
-    <TextInput v-model="searchFontInput">Search a font</TextInput>
-    <RouterLink to="/selection">Favorites ({{ api.favoriteList.length }})</RouterLink>
+  <header class="flex justify-around items-center">
+    <img src="@/assets/google-fonts-logo.svg" alt="Google Fonts logo" />
+    <TextInput v-model="searchFontInput" placeholder="Search fonts" />
+
+    <RouterLink to="/selection" class="flex w-fit items-center">
+      <v-icon name="md-shoppingbag-outlined" scale="1.5" />
+      <p class="font-sans font-bold">({{ api.favoriteList.length }})</p>
+    </RouterLink>
   </header>
   <main>
     <h1>Fonts List</h1>

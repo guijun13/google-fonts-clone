@@ -1,11 +1,13 @@
 <script setup lang="ts">
 const model = defineModel();
-defineProps(['title']);
+const props = defineProps(['placeholder']);
 </script>
 
 <template>
-  <div>
-    <label><slot /></label>
-    <input type="text" v-model="model" />
-  </div>
+  <input
+    type="text"
+    v-model="model"
+    :placeholder="props.placeholder"
+    class="mx-4 grow py-4 border-none rounded-full bg-slate-100 p-4 font-sans"
+  />
 </template>

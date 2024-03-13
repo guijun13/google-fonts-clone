@@ -1,16 +1,10 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <header>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-    </nav>
-  </header>
-
   <Suspense>
-    <RouterView />
+    <div class="p-4">
+      <RouterView />
+    </div>
 
     <template v-slot:fallback>Data is loading...</template>
   </Suspense>
