@@ -28,14 +28,12 @@ export const useApi = defineStore('apiCall', {
     },
   },
   actions: {
-    async fetchApi(): Promise<void> {
+    async fetchApi(min: number, max: number): Promise<void> {
       const response = await fetch(
         `https://www.googleapis.com/webfonts/v1/webfonts?key=${import.meta.env.VITE_API_KEY}`,
       ).then((response) => response.json());
 
-      // console.log(`response:`, response.items);
-
-      this.fontsList = response.items.slice(0, 20);
+      this.fontsList = response.items.slice(min, max);
     },
   },
 });

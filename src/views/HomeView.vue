@@ -1,14 +1,30 @@
 <script setup lang="ts">
 import { useApi } from '@/stores/apiCall';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const api = useApi();
 const yourTextInput = ref('');
 const searchFontInput = ref('');
+const numberOfFonts = ref(20);
+const el = ref<HTMLElement | null>(null);
 
-api.fetchApi();
+api.fetchApi(0, numberOfFonts.value);
+
 const { getFilteredFonts } = storeToRefs(api);
+
+function handleScroll() {
+  if (
+    window.innerHeight + document.documentElement.scrollTop + 2 >=
+    document.documentElement.offsetHeight
+  ) {
+    api.fetchApi(0, numberOfFonts.value);
+    numberOfFonts.value += 5;
+  }
+}
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
 </script>
 
 <template>
@@ -22,7 +38,7 @@ const { getFilteredFonts } = storeToRefs(api);
       <label for="searchFontInput">Search a font</label>
       <input type="text" v-model="searchFontInput" />
     </div>
-    <ul>
+    <ul ref="el">
       <li v-for="font in getFilteredFonts(searchFontInput)" :key="font.family">
         <h2>
           {{ font.family }}
@@ -35,7 +51,9 @@ const { getFilteredFonts } = storeToRefs(api);
         >
           {{ yourTextInput }}
         </p>
-        <p v-else style="font-size: 24px">The quick brown fox jumps over the lazy dog</p>
+        <p v-else :style="{ fontFamily: font.family, fontSize: '24px' }">
+          The quick brown fox jumps over the lazy dog
+        </p>
       </li>
     </ul>
   </main>
