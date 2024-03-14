@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import BrowseFontsButton from '@/components/BrowseFontsButton.vue';
 import { useApi } from '@/stores/apiCall';
-import { RouterLink } from 'vue-router';
 
 const api = useApi();
 </script>
@@ -13,15 +13,20 @@ const api = useApi();
       :key="favorite.family"
       class="flex items-center justify-between my-4 p-4 gap-x-4 border border-gray-200 rounded-lg transition hover:bg-gray-200 duration-400"
     >
-      <p class="">
-        {{ favorite.family }}
-      </p>
+      <RouterLink :to="`/specimen/${favorite.family}`">
+        <p>
+          {{ favorite.family }}
+        </p>
+      </RouterLink>
       <button
         @click="api.removeFavorite(favorite)"
         class="p-4 text-blue-500 border border-solid border-blue-400 rounded-full transtion hover:bg-blue-100 duration-300"
       >
-        <p class="">Remove</p>
+        <p>Remove</p>
       </button>
+    </div>
+    <div class="flex justify-center">
+      <BrowseFontsButton />
     </div>
   </div>
   <div v-else class="flex flex-col items-center">
@@ -29,11 +34,6 @@ const api = useApi();
     <p class="text-center my-8 text-[24px]">
       You don't have any fonts yet. Choose a font to get started.
     </p>
-    <RouterLink
-      class="p-4 text-blue-500 border border-solid border-blue-400 rounded-full transtion hover:bg-blue-100 duration-300"
-      to="/"
-    >
-      <p class="font-semibold">Browse fonts</p></RouterLink
-    >
+    <BrowseFontsButton />
   </div>
 </template>
