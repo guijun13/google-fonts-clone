@@ -41,7 +41,7 @@ onMounted(() => {
 
     <RouterLink to="/selection" class="flex w-fit items-center">
       <v-icon name="md-shoppingbag-outlined" scale="1.5" />
-      <p class="font-sans font-bold">({{ api.favoriteList.length }})</p>
+      <p class="font-bold">({{ api.favoriteList.length }})</p>
     </RouterLink>
   </header>
   <main>
@@ -60,7 +60,7 @@ onMounted(() => {
       <RouterLink :to="`/specimen/${font.family}`" class="flex flex-col gap-x-4 items-start">
         <link rel="stylesheet" :href="`https://fonts.googleapis.com/css?family=${font.family}`" />
         <div class="flex gap-x-4 my-4">
-          <p class="font-sans">
+          <p>
             {{ font.family }}
           </p>
           <p class="text-gray-400">{{ font.variants?.length }} styles</p>
@@ -80,7 +80,7 @@ onMounted(() => {
         :disabled="api.favoriteList.includes(font)"
         class="p-4 text-blue-500 border border-solid border-blue-400 rounded-full disabled:cursor-not-allowed disabled:opacity-30 transtion hover:bg-blue-100 duration-300"
       >
-        <p class="font-sans font-semibold">Favorite</p>
+        <p class="font-semibold">Favorite</p>
       </button>
     </section>
   </main>
