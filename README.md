@@ -5,6 +5,11 @@ Made by guijun13 using Vue3
 
 ## Project Setup
 
+### Requirements
+
+node.js 18+
+npm 8+
+
 ### Clone the project
 
 ```sh
