@@ -7,8 +7,8 @@ Made by guijun13 using Vue3
 
 ### Requirements
 
-node.js 18+
-npm 8+
+1. node.js 18+
+2. npm 8+
 
 ### Clone the project
 
@@ -39,3 +39,12 @@ npm install
 ```sh
 npm run dev
 ```
+
+---
+
+## Improves to-do
+
+- [ ] Add navbar to all pages by component
+- [ ] Download font on favorite page
+- [ ] Add more filters
+- [ ] Add more info to font family page
