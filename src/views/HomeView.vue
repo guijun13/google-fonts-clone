@@ -45,7 +45,7 @@ onMounted(() => {
     </RouterLink>
   </header>
   <main>
-    <section class="my-8 sm:flex gap-y-8 sm:gap-x-4 sm:items-center">
+    <section class="flex flex-col my-8 gap-y-4 lg:flex-row lg:gap-x-4 lg:items-center">
       <TextInput v-model="previewTextInput" placeholder="Try your text">Preview:</TextInput>
       <div class="flex items-center">
         <RangeInput v-model="fontSizeInput" />
