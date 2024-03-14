@@ -16,7 +16,7 @@ const el = ref<HTMLElement | null>(null);
 
 api.fetchApi(0, numberOfFonts.value);
 
-const { getFilteredFonts } = storeToRefs(api);
+const { getFilteredFonts, verifyFavorite } = storeToRefs(api);
 
 function handleScroll(): void {
   if (
@@ -77,7 +77,7 @@ onMounted(() => {
       </RouterLink>
       <button
         @click="api.addFavorite(font)"
-        :disabled="api.favoriteList.includes(font)"
+        :disabled="verifyFavorite(font)"
         class="p-4 text-blue-500 border border-solid border-blue-400 rounded-full disabled:cursor-not-allowed disabled:opacity-30 transtion hover:bg-blue-100 duration-300"
       >
         <p class="font-semibold">Favorite</p>

@@ -34,6 +34,10 @@ export const useApi = defineStore('apiCall', {
           font.family.toLocaleLowerCase().includes(searchFont.toLowerCase()),
         );
       },
+    verifyFavorite:
+      (state) =>
+      (font: Font): boolean =>
+        state.favoriteList.some((favorite: Font) => favorite.family === font.family),
   },
   actions: {
     async fetchApi(min: number, max: number): Promise<void> {
